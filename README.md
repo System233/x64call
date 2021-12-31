@@ -4,7 +4,7 @@ Call 64bit code function in 32bit process;
 32位进程调用64位函数, CPP类型安全
 ## Usage
 
-### In cpp
+### IN CPP
 ```cpp
 
 #include <Windows.h>
@@ -31,7 +31,7 @@ using PNtCreateThreadEx=DWORD64(
   
 ```
 
-### In c
+### IN C
 ```c
 #include <Windows.h>
 #include <x64call.h>
@@ -51,3 +51,6 @@ x64call_exec(
     (uint64_t)NULL,
 )
 ```
+
+## Notes
+不支持浮点类型和结构体传值
