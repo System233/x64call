@@ -1,0 +1,56 @@
+
+/**
+ * x64call cpp header
+ * 
+ * Copyright (c) 2021 github.com/System233
+ * 
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+#include "x64call.h"
+
+namespace x64call{
+    /*alias of x64call_dlwalk*/
+    constexpr auto dlwalk=x64call_dlwalk;
+    /*alias of x64call_dlsym*/
+    constexpr auto dlsym=x64call_dlsym;
+    /*alias of x64call_exec*/
+    constexpr auto exec=x64call_exec;
+
+    /*call 64bit code by address*/
+    template<class R,class...Args>
+    R call(uint64_t addr,Args...args)
+    {
+        return static_cast<R>(exec(sizeof...(Args),addr,((uint64_t)(std::forward<Args>(args)))...));
+    }
+    /*call 64bit function by name*/
+    template<class R,class...Args>
+    R call(char const*name,Args...args)
+    {
+        return call<R>(dlwalk(name),std::forward<Args>(args)...);
+    }
+
+    /*
+        Type-safe call helper.
+        @example 
+        x64<int(char,int)>::call("func",'a',10);
+    */
+    template<class T>
+    struct x64;
+    template<class R,class...Args>
+    struct x64<R(Args...)>{
+        static R call(char const*name,Args...args){
+            return x64call::call<R>(name,std::forward<Args>(args)...);
+        }
+        static R call(uint64_t addr,Args...args){
+            return x64call::call<R>(addr,std::forward<Args>(args)...);
+        }
+        template<char const* N>
+        static R call(Args...args){
+            static auto addr=x64call::dlwalk(N);
+            return x64call::call<R>(addr,std::forward<Args>(args)...);
+        }
+    };
+    
+}
