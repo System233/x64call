@@ -4,6 +4,8 @@ Call 64bit function in 32bit process;
 32位进程调用64位函数, CPP类型安全
 ## Usage
 
+32位进程远程注入64位进程示例
+
 ### IN CPP
 ```cpp
 
