@@ -1,6 +1,6 @@
 # x64call
 
-Call 64bit code function in 32bit process;  
+Call 64bit function in 32bit process;  
 32位进程调用64位函数, CPP类型安全
 ## Usage
 
