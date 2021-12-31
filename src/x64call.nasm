@@ -6,8 +6,6 @@
     global _x64call_exec
     global x64call_strcmp
     global _x64call_strcmp
-    global x64call_argsnum
-    global _x64call_argsnum
     global x64call_isin32
     global _x64call_isin32
     global x64call_dlsym
